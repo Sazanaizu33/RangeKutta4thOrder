@@ -14,7 +14,7 @@ int main(int argc, char* argv[])
 
   double result = 0.0;
 	result = RungeKutta4 ::DoRungeKutta4(upperBound, h, yInitValue, tInitValue);
-  printf("Final result is: %f\n", result);
+  printf("Final result is: %0.14f\n", result);
 
 	system("PAUSE");
 

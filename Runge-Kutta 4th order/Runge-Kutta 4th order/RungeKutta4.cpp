@@ -25,18 +25,19 @@ double RungeKutta4::DoRungeKutta4(const double N, const double h, const double y
   double t0 = tInitValue;
 
 	int j;
-	for(j = 1; j < N; j++)
+	for(j = 1; j <= N; j++)
 	{
-		t = t0 + j * h;
+		t = j * h;
 		t2 = t0 + 0.5 * h;
 		k1 = f(t0, y0);
-		k2 = f(t2, y0 + 0.5 * h * k1);
-		k3 = f(t2, y0 + 0.5 * h * k2);
-		k4 = f(t, y0 + h * k3);
+		k2 = f(t2, y0 + 0.5 * k1);
+		k3 = f(t2, y0 + 0.5 * k2);
+		k4 = f(t0 + h, y0 + k3);
 		y = y0 + (h/6.0)*(k1 + 2.0 * (k2 + k3) + k4);
-		y0 = y;
+    y0 = y;
 		t0 = t;
-		printf("The approximate value at t = %d is %f\n", t0, y0);
+    printf("The approximate value at t = %0.3f is %0.14f\n", t0, y0);
+		
 	}
 
   return y0;
