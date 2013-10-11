@@ -1,6 +1,6 @@
-#include "RungeKutta4.h"
 #include <math.h>
 #include <iostream>
+#include "RungeKutta4.h"
 
 RungeKutta4::RungeKutta4()
 {
@@ -10,9 +10,10 @@ RungeKutta4::~RungeKutta4()
 {
 }
 
+/*This function is responsible for the 4th-order Runge-Kutta method. It returns the calculated value at each t.*/
 double RungeKutta4::DoRungeKutta4(const double N, const double h, const double yInitValue, const double tInitValue)
 {
-	//Declaration/Initialization. Variables will be changed, so do NOT use CONST
+	//Declaration and Initialization. Variables will be changed, so do NOT use CONST
 	double k1 = 0.0; 
   double k2 = 0.0; 
   double k3 = 0.0; 
@@ -23,24 +24,25 @@ double RungeKutta4::DoRungeKutta4(const double N, const double h, const double y
   double y0 = yInitValue;
   double t0 = tInitValue;
 
-	int n;
-	for(n = 0; n < N; n++)
+	int j;
+	for(j = 1; j < N; j++)
 	{
-		t = t + n * h;
-		t2 = t0 + h;
-		k1 = h * f(t0, y0);
-		k2 = h * f(t2, y0 + (1/2) * k1);
-		k3 = h * f(t2, y0 + (1/2) * k2);
-		k4 = h * f(t, y0 + k3);
-		y = y0 + (1.0/6.0)*(k1 + 2.0 * k2 + 2.0 * k3 + k4);
+		t = t0 + j * h;
+		t2 = t0 + 0.5 * h;
+		k1 = f(t0, y0);
+		k2 = f(t2, y0 + 0.5 * h * k1);
+		k3 = f(t2, y0 + 0.5 * h * k2);
+		k4 = f(t, y0 + h * k3);
+		y = y0 + (h/6.0)*(k1 + 2.0 * (k2 + k3) + k4);
 		y0 = y;
 		t0 = t;
-		printf("%f\n", y0);
+		printf("The approximate value at t = %d is %f\n", t0, y0);
 	}
 
   return y0;
 }
 
+/*This function is responsible for generating equation to be used in the Runge-Kutta method above.*/
 double RungeKutta4::f(const double t, const double y)
 {
 	double log_result = 0.0;
